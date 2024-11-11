@@ -1,7 +1,12 @@
 import pygame
 
 # Initialize Pygame mixer
-pygame.mixer.init()
+try:
+    pygame.mixer.init()
+except pygame.error as e:
+    print(f"ALSA error: {e}")
+    print("Falling back to default sound device.")
+    pygame.mixer.init(devicename=None)
 
 # Load sound effects
 shoot_sound = pygame.mixer.Sound("sounds/shoot.wav")
